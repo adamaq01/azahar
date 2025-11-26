@@ -94,6 +94,9 @@ private:
     /// Detects whether the NCCH contains GBA Virtual Console.
     bool IsGbaVirtualConsole(std::span<const u8> code);
 
+    /// Detects whether the NCCH is a Forwarder Application.
+    bool IsForwardApp();
+
     FileSys::NCCHContainer base_ncch;
     FileSys::NCCHContainer update_ncch;
     FileSys::NCCHContainer* overlay_ncch;
