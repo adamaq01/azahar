@@ -17,9 +17,9 @@ object ExternalApp {
         val emulationActivity = NativeLibrary.sEmulationActivity.get()
         data = ExternalAppData(0)
 
-        val launchIntent = getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
+        val launchIntent = emulationActivity.getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
         if (launchIntent != null) {
-            startActivity(launchIntent);
+            emulationActivity.startActivity(launchIntent);
         }
     }
 
