@@ -140,15 +140,18 @@ ResultStatus AppLoader_NCCH::LoadExec(std::shared_ptr<Kernel::Process>& process)
             return ResultStatus::ErrorGbaTitle;
         }
 
-        if (IsForwardApp()) {
-            LOG_ERROR(Loader, "Encountered Forwarder Application.");
-            return ResultStatus::Error;
-        }
-
         std::string process_name = Common::StringFromFixedZeroTerminatedBuffer(
             (const char*)overlay_ncch->exheader_header.codeset_info.name, 8);
 
         std::shared_ptr<CodeSet> codeset = system.Kernel().CreateCodeSet(process_name, program_id);
+
+        /*std::string proc;
+        if (IsForwardApp(&proc)) {
+            LOG_ERROR(Loader, "Encountered Forwarder Application.");
+            process = system.Kernel().CreateProcess(std::move(codeset));
+            process->MarkRunning(proc);
+            return ResultStatus::Success;
+        }*/
 
         codeset->CodeSegment().offset = 0;
         codeset->CodeSegment().addr = overlay_ncch->exheader_header.codeset_info.text.address;
@@ -287,7 +290,7 @@ bool AppLoader_NCCH::IsGbaVirtualConsole(std::span<const u8> code) {
     return gbaVcHeader[0] == MakeMagic('.', 'C', 'A', 'A') && gbaVcHeader[1] == 1;
 }
 
-bool AppLoader_NCCH::IsForwardApp() {
+bool AppLoader_NCCH::IsForwardApp(std::string* process) {
     std::vector<u8> smdh_buffer;
     if (ReadIcon(smdh_buffer) == ResultStatus::Success && smdh_buffer.size() >= sizeof(SMDH)) {
         SMDH smdh;
@@ -299,6 +302,10 @@ bool AppLoader_NCCH::IsForwardApp() {
         std::u16string_view long_title_view(long_title.data(), long_title.size());
         const std::u16string_view forward_prefix = u"forward:";
         if (long_title_view.substr(0, forward_prefix.size()) == forward_prefix) {
+            if (process != nullptr) {
+                std::string process_name_utf8 = Common::UTF16ToUTF8(long_title_view);
+                *process = process_name_utf8.substr(forward_prefix.size());
+            }
             return true;
         } else {
             return false;

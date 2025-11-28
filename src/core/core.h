@@ -23,6 +23,7 @@ namespace Frontend {
 class EmuWindow;
 class ImageInterface;
 class MiiSelector;
+class ExternalApp;
 class SoftwareKeyboard;
 } // namespace Frontend
 
@@ -317,10 +318,16 @@ public:
 
     void RegisterMiiSelector(std::shared_ptr<Frontend::MiiSelector> mii_selector);
 
+    void RegisterExternalApp(std::shared_ptr<Frontend::ExternalApp> external_app);
+
     void RegisterSoftwareKeyboard(std::shared_ptr<Frontend::SoftwareKeyboard> swkbd);
 
     [[nodiscard]] std::shared_ptr<Frontend::MiiSelector> GetMiiSelector() const {
         return registered_mii_selector;
+    }
+
+    [[nodiscard]] std::shared_ptr<Frontend::ExternalApp> GetExternalApp() const {
+        return registered_external_app;
     }
 
     [[nodiscard]] std::shared_ptr<Frontend::SoftwareKeyboard> GetSoftwareKeyboard() const {
@@ -416,6 +423,7 @@ private:
 
     /// Frontend applets
     std::shared_ptr<Frontend::MiiSelector> registered_mii_selector;
+    std::shared_ptr<Frontend::ExternalApp> registered_external_app;
     std::shared_ptr<Frontend::SoftwareKeyboard> registered_swkbd;
 
     /// Movie recorder

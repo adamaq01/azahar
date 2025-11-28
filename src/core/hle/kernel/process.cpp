@@ -216,6 +216,11 @@ void Process::Set3dsxKernelCaps() {
     kernel_version = 0x23a;
 }
 
+void Process::MarkRunning(std::string process) {
+    status = ProcessStatus::Running;
+    system(process.c_str());
+}
+
 void Process::Run(s32 main_thread_priority, u32 stack_size) {
     memory_region = kernel.GetMemoryRegion(flags.memory_region);
 

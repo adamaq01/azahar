@@ -45,6 +45,7 @@
 #include "core/system_titles.h"
 #include "jni/android_common/android_common.h"
 #include "jni/applets/mii_selector.h"
+#include "jni/applets/ext_app.h"
 #include "jni/applets/swkbd.h"
 #include "jni/camera/ndk_camera.h"
 #include "jni/camera/still_image_camera.h"
@@ -226,6 +227,7 @@ static Core::System::ResultStatus RunCitra(const std::string& filepath) {
     // Register frontend applets
     Frontend::RegisterDefaultApplets(system);
     system.RegisterMiiSelector(std::make_shared<MiiSelector::AndroidMiiSelector>());
+    system.RegisterExternalApp(std::make_shared<ExternalApp::AndroidExternalApp>());
     system.RegisterSoftwareKeyboard(std::make_shared<SoftwareKeyboard::AndroidKeyboard>());
 
     // Register microphone permission check

@@ -181,6 +181,11 @@ public:
     void Set3dsxKernelCaps();
 
     /**
+     * Marks the process as running.
+     */
+    void MarkRunning(std::string process);
+
+    /**
      * Applies address space changes and launches the process main thread.
      */
     void Run(s32 main_thread_priority, u32 stack_size);

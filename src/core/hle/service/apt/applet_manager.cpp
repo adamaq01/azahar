@@ -9,6 +9,7 @@
 #include "core/frontend/input.h"
 #include "core/hle/applets/applet.h"
 #include "core/hle/applets/erreula.h"
+#include "core/hle/applets/ext_app.h"
 #include "core/hle/applets/mii_selector.h"
 #include "core/hle/applets/mint.h"
 #include "core/hle/applets/swkbd.h"
@@ -102,6 +103,7 @@ static constexpr std::array<AppletTitleData, NumApplets> applet_titleids = {{
     {{AppletId::Memolib, AppletId::Memolib2},
      {0x400300000F602, 0x400300000F602, 0x400300000F602, 0x400300000F602, 0x400300000F602,
       0x400300000F602, 0x400300000F602}},
+    {{AppletId::ExternalApp, AppletId::None}, {0, 0, 0, 0, 0, 0, 0}},
     // TODO(Subv): Fill in the rest of the titleids
 }};
 
@@ -529,6 +531,10 @@ Result AppletManager::CreateHLEApplet(AppletId id, AppletId parent, bool preload
     case AppletId::Mint2:
         hle_applets[id] =
             std::make_shared<HLE::Applets::Mint>(system, id, parent, preload, shared_from_this());
+        break;
+    case AppletId::ExternalApp:
+        hle_applets[id] = std::make_shared<HLE::Applets::ExternalApp>(
+            system, id, parent, preload, shared_from_this());
         break;
     default:
         LOG_ERROR(Service_APT, "Could not create applet {}", id);

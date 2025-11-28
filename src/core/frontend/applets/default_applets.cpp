@@ -5,11 +5,13 @@
 #include "core/core.h"
 #include "core/frontend/applets/default_applets.h"
 #include "core/frontend/applets/mii_selector.h"
+#include "core/frontend/applets/ext_app.h"
 #include "core/frontend/applets/swkbd.h"
 
 namespace Frontend {
 void RegisterDefaultApplets(Core::System& system) {
     system.RegisterSoftwareKeyboard(std::make_shared<DefaultKeyboard>(system));
     system.RegisterMiiSelector(std::make_shared<DefaultMiiSelector>());
+    system.RegisterExternalApp(std::make_shared<DefaultExternalApp>());
 }
 } // namespace Frontend

@@ -109,6 +109,8 @@ add_library(citra_core STATIC
     frontend/applets/default_applets.h
     frontend/applets/mii_selector.cpp
     frontend/applets/mii_selector.h
+    frontend/applets/ext_app.cpp
+    frontend/applets/ext_app.h
     frontend/applets/swkbd.cpp
     frontend/applets/swkbd.h
     frontend/camera/blank_camera.cpp
@@ -132,6 +134,8 @@ add_library(citra_core STATIC
     hle/applets/applet.h
     hle/applets/erreula.cpp
     hle/applets/erreula.h
+    hle/applets/ext_app.cpp
+    hle/applets/ext_app.h
     hle/applets/mii_selector.cpp
     hle/applets/mii_selector.h
     hle/applets/mint.cpp

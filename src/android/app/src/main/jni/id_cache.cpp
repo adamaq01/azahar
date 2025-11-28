@@ -10,6 +10,7 @@
 #include "common/settings.h"
 #include "core/hle/service/am/am.h"
 #include "jni/applets/mii_selector.h"
+#include "jni/applets/ext_app.h"
 #include "jni/applets/swkbd.h"
 #include "jni/camera/still_image_camera.h"
 #include "jni/id_cache.h"
@@ -254,6 +255,7 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved) {
     env->DeleteLocalRef(cia_install_status_class);
 
     MiiSelector::InitJNI(env);
+    ExternalApp::InitJNI(env);
     SoftwareKeyboard::InitJNI(env);
     Camera::StillImage::InitJNI(env);
     AndroidStorage::InitJNI(env, s_native_library_class);
@@ -283,6 +285,7 @@ void JNI_OnUnload(JavaVM* vm, void* reserved) {
     }
 
     MiiSelector::CleanupJNI(env);
+    ExternalApp::CleanupJNI(env);
     SoftwareKeyboard::CleanupJNI(env);
     Camera::StillImage::CleanupJNI(env);
     AndroidStorage::CleanupJNI();

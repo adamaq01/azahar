@@ -621,6 +621,10 @@ void System::RegisterMiiSelector(std::shared_ptr<Frontend::MiiSelector> mii_sele
     registered_mii_selector = std::move(mii_selector);
 }
 
+void System::RegisterExternalApp(std::shared_ptr<Frontend::ExternalApp> external_app) {
+    registered_external_app = std::move(external_app);
+}
+
 void System::RegisterSoftwareKeyboard(std::shared_ptr<Frontend::SoftwareKeyboard> swkbd) {
     registered_swkbd = std::move(swkbd);
 }
