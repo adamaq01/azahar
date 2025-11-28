@@ -251,6 +251,7 @@ jobs:
           ANDROID_KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_B64 }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          CMAKE_BUILD_PARALLEL_LEVEL: 8
       - name: Pack
         run: ../../../.ci/pack.sh
         working-directory: src/android/app
