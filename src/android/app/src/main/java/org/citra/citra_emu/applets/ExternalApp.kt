@@ -14,10 +14,10 @@ object ExternalApp {
     val finishLock = Object()
 
     private fun ExecuteImpl(config: ExternalAppConfig) {
-        val emulationActivity = NativeLibrary.sEmulationActivity.get()
+        val emulationActivity = NativeLibrary.sEmulationActivity.get()!!
         data = ExternalAppData(0)
 
-        val launchIntent = emulationActivity.getPackageManager().getLaunchIntentForPackage("com.google.android.youtube");
+        val launchIntent = emulationActivity.getPackageManager().getLaunchIntentForPackage(config.title ?: "com.google.android.youtube");
         if (launchIntent != null) {
             emulationActivity.startActivity(launchIntent);
         }
